@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>mariloks</title>
+
+    <style>
+
+        *{
+
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+
+            background:#f8f4f5;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            min-height:100vh;
+
+            padding:20px;
+        }
+
+        .contenedor{
+
+            width:700px;
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:18px;
+
+            border:1px solid #ead8de;
+
+            box-shadow:0 8px 20px rgba(0,0,0,.05);
+        }
+
+        h1{
+
+            color:#6e1f3a;
+
+            font-size:22px;
+
+            margin-bottom:8px;
+        }
+
+        .subtitulo{
+
+            color:#8b5c6c;
+
+            font-size:13px;
+
+            margin-bottom:25px;
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            overflow:hidden;
+
+            border-radius:12px;
+
+            margin-bottom:25px;
+        }
+
+        th{
+
+            background:#7d2947;
+
+            color:white;
+
+            padding:12px;
+
+            font-size:13px;
+
+            font-weight:500;
+        }
+
+        td{
+
+            padding:12px;
+
+            text-align:center;
+
+            border-bottom:1px solid #f0e4e7;
+
+            font-size:13px;
+
+            color:#4a2a33;
+        }
+
+        tr:nth-child(even){
+
+            background:#faf7f8;
+        }
+
+        .acciones{
+
+            display:flex;
+
+            justify-content:center;
+        }
+
+        .btn{
+
+            padding:12px 24px;
+
+            background:#8d3152;
+
+            color:white;
+
+            border:none;
+
+            border-radius:10px;
+
+            cursor:pointer;
+
+            font-size:13px;
+
+            transition:.2s;
+        }
+
+        .btn:hover{
+
+            background:#722742;
+        }
+
+        .resultado{
+
+            margin-top:30px;
+
+            display:none;
+        }
+
+        .headerResultado{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:20px;
+        }
+
+        .headerResultado h2{
+
+            color:#6e1f3a;
+
+            font-size:18px;
+        }
+
+        .headerResultado span{
+
+            background:#f4dce5;
+
+            color:#7d2947;
+
+            padding:6px 14px;
+
+            border-radius:20px;
+
+            font-size:11px;
+        }
+
+        .cardResultado{
+
+            background:#fff;
+
+            border:1px solid #ead8de;
+
+            border-left:5px solid #8d3152;
+
+            border-radius:14px;
+
+            padding:15px;
+
+            margin-bottom:12px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            transition:.2s;
+        }
+
+        .cardResultado:hover{
+
+            transform:translateY(-2px);
+        }
+
+        .infoTipo{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:5px;
+        }
+
+        .tipo{
+
+            color:#6e1f3a;
+
+            font-size:15px;
+
+            font-weight:bold;
+        }
+
+        .empresa{
+
+            color:#7d2947;
+
+            font-size:12px;
+        }
+
+        .precio{
+
+            background:#f7edf0;
+
+            color:#8d3152;
+
+            padding:10px 16px;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            font-size:14px;
+        }
+
+        .footerResultado{
+
+            margin-top:20px;
+
+            padding-top:15px;
+
+            border-top:1px solid #ead8de;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+        }
+
+        .textoTotal{
+
+            color:#7d2947;
+
+            font-size:15px;
+
+            font-weight:bold;
+        }
+
+        .precioTotal{
+
+            color:#8d3152;
+
+            font-size:24px;
+
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>
+            Algoritmo A*
+        </h1>
+
+        
+
+        <table>
+
+            <tr>
+
+                <th>Empresa</th>
+                <th>T</th>
+                <th>H</th>
+                <th>V</th>
+                <th>W</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Empresa 1</td>
+                <td>20</td>
+                <td>30</td>
+                <td>20</td>
+                <td>40</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Empresa 2</td>
+                <td>50</td>
+                <td>50</td>
+                <td>40</td>
+                <td>50</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Empresa 3</td>
+                <td>60</td>
+                <td>55</td>
+                <td>50</td>
+                <td>60</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Empresa 4</td>
+                <td>100</td>
+                <td>80</td>
+                <td>60</td>
+                <td>70</td>
+
+            </tr>
+
+        </table>
+
+        <div class="acciones">
+
+            <button class="btn"
+            onclick="verResultado()">
+
+                Mostrar mejor combinación
+
+            </button>
+
+        </div>
+
+        <div class="resultado"
+        id="resultado">
+
+            <div class="headerResultado">
+
+                <h2>
+                    Resultado óptimo
+                </h2>
+
+                
+
+            </div>
+
+            <div id="contenidoCards">
+
+            </div>
+
+            <div class="footerResultado">
+
+                <div class="textoTotal">
+
+                    Costo total
+
+                </div>
+
+                <div class="precioTotal"
+                id="total">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const costos = {
+
+            Empresa1:{
+                T:20,
+                H:30,
+                V:20,
+                W:40
+            },
+
+            Empresa2:{
+                T:50,
+                H:50,
+                V:40,
+                W:50
+            },
+
+            Empresa3:{
+                T:60,
+                H:55,
+                V:50,
+                W:60
+            },
+
+            Empresa4:{
+                T:100,
+                H:80,
+                V:60,
+                W:70
+            }
+        }
+
+        const tipos = ['T','H','V','W']
+
+        const empresas =
+            Object.keys(costos)
+
+        function heuristica(
+            asignados,
+            indiceTipo
+        ){
+
+            let restantes =
+                tipos.slice(indiceTipo)
+
+            let disponibles =
+                empresas.filter(
+                    e =>
+                    !asignados.includes(e)
+                )
+
+            let h = 0
+
+            for(let tipo of restantes){
+
+                let minimo = Math.min(
+
+                    ...disponibles.map(
+                        e => costos[e][tipo]
+                    )
+
+                )
+
+                h += minimo
+            }
+
+            return h
+        }
+
+        function aEstrella(){
+
+            let frontera = []
+
+            frontera.push({
+
+                asignacion:[],
+
+                g:0,
+
+                f:0
+            })
+
+            while(frontera.length > 0){
+
+                frontera.sort(
+                    (a,b)=>a.f-b.f
+                )
+
+                let actual =
+                    frontera.shift()
+
+                let indiceTipo =
+                    actual.asignacion.length
+
+                if(
+                    indiceTipo ===
+                    tipos.length
+                ){
+
+                    return actual
+                }
+
+                let tipoActual =
+                    tipos[indiceTipo]
+
+                for(let empresa
+                    of empresas){
+
+                    if(
+                        !actual.asignacion
+                        .includes(empresa)
+                    ){
+
+                        let nuevaAsignacion = [
+
+                            ...actual.asignacion,
+
+                            empresa
+                        ]
+
+                        let costoActual =
+
+                            costos[empresa]
+                            [tipoActual]
+
+                        let nuevoG =
+
+                            actual.g
+                            + costoActual
+
+                        let nuevoH =
+
+                            heuristica(
+
+                                nuevaAsignacion,
+
+                                indiceTipo + 1
+                            )
+
+                        let nuevoF =
+
+                            nuevoG + nuevoH
+
+                        frontera.push({
+
+                            asignacion:
+                            nuevaAsignacion,
+
+                            g:nuevoG,
+
+                            f:nuevoF
+                        })
+                    }
+                }
+            }
+        }
+
+        function verResultado(){
+
+            let solucionGlobal =
+                aEstrella()
+
+            let contenido =
+                document.getElementById(
+                    'contenidoCards'
+                )
+
+            contenido.innerHTML = ''
+
+            for(
+                let i=0;
+                i<tipos.length;
+                i++
+            ){
+
+                let empresa =
+
+                    solucionGlobal
+                    .asignacion[i]
+
+                let tipo =
+                    tipos[i]
+
+                let precio =
+
+                    costos[empresa][tipo]
+
+                contenido.innerHTML += `
+
+                    <div class="cardResultado">
+
+                        <div class="infoTipo">
+
+                            <div class="tipo">
+
+                                Tipo ${tipo}
+
+                            </div>
+
+                            <div class="empresa">
+
+                                Asignado a:
+                                ${empresa}
+
+                            </div>
+
+                        </div>
+
+                        <div class="precio">
+
+                            $${precio}
+
+                        </div>
+
+                    </div>
+                `
+            }
+
+            document.getElementById(
+                'total'
+            ).innerHTML =
+
+                '$' +
+                solucionGlobal.g
+
+            document.getElementById(
+                'resultado'
+            ).style.display = 'block'
+        }
+
+    </script>
+
+</body>
+</html>
