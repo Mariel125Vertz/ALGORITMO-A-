@@ -8,5 +8,4 @@ urlpatterns = [
         views.inicio,
         name='inicio'
     ),
-
 ]
